@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { getProject, projects, type Project } from "@/lib/projects";
 import { BackgroundField } from "@/components/folio/BackgroundField";
+import { ProjectLinks } from "@/components/folio/ProjectLinks";
 
 export const Route = createFileRoute("/work/$slug")({
   head: ({ params }) => {
@@ -216,31 +217,8 @@ function ProjectPage() {
         </div>
       </section>
 
-      {/* Outcomes */}
-      <section className="relative z-10 px-5 md:px-10 mt-20 md:mt-28">
-        <div className="mx-auto max-w-6xl">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {p.outcomes.map((o, i) => (
-              <motion.div
-                key={o.label}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.7, ease, delay: i * 0.1 }}
-                className="rounded-2xl p-8 ring-soft"
-                style={{
-                  background: `linear-gradient(160deg, ${p.color} 0%, transparent 120%)`,
-                }}
-              >
-                <div className="font-display text-5xl md:text-6xl font-light">{o.value}</div>
-                <div className="mt-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground/70">
-                  {o.label}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Links: Live demo · Source · Star */}
+      <ProjectLinks project={p} />
 
       {/* Next */}
       <section className="relative z-10 px-5 md:px-10 mt-24 md:mt-32 pb-24 md:pb-32">

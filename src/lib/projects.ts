@@ -12,6 +12,10 @@ export type Project = {
   overview: string;
   highlights: string[];
   outcomes: { label: string; value: string }[];
+  /** Live deployed URL. Omit if not deployed. */
+  demo?: string;
+  /** GitHub repo in "owner/name" form. Omit if private/none. */
+  repo?: string;
 };
 
 export const projects: Project[] = [
@@ -38,6 +42,8 @@ export const projects: Project[] = [
       { label: "Avg Match Score", value: "87%" },
       { label: "User Satisfaction", value: "4.9 ★" },
     ],
+    demo: "https://solace-app.vercel.app",
+    repo: "abenezerniguse/solace",
   },
   {
     slug: "hinta",
@@ -62,6 +68,8 @@ export const projects: Project[] = [
       { label: "Languages", value: "4" },
       { label: "Admin Users", value: "8" },
     ],
+    demo: "https://solace-app.vercel.app",
+    repo: "abenezerniguse/solace",
   },
   {
     slug: "madab-birr",
@@ -86,6 +94,8 @@ export const projects: Project[] = [
       { label: "Transactions", value: "1.2k+" },
       { label: "Team Size", value: "4" },
     ],
+    demo: "https://solace-app.vercel.app",
+    repo: "abenezerniguse/solace",
   },
 ];
 
