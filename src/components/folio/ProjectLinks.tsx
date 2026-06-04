@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { ExternalLink, Github, Star, Rocket } from "lucide-react";
+import { ExternalLink, Github, Sparkles, Telescope, Heart } from "lucide-react";
 import type { Project } from "@/lib/projects";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -79,10 +79,10 @@ export function ProjectLinks({ project: p }: { project: Project }) {
       <div className="mx-auto max-w-6xl">
         <div className="mb-6 md:mb-8 flex items-baseline justify-between">
           <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-foreground/60">
-            Links
+            (04) — Take it for a spin
           </span>
           <span className="font-mono text-[11px] text-foreground/50">
-            ship · source · support
+            launch · peek · cheer
           </span>
         </div>
 
@@ -99,16 +99,27 @@ export function ProjectLinks({ project: p }: { project: Project }) {
             onClick={(e: any) => !p.demo && e.preventDefault()}
           >
             <div className="flex items-start justify-between">
-              <Rocket className="h-6 w-6 text-[var(--ink)]" />
+              <motion.span
+                whileHover={{ rotate: -12, scale: 1.1 }}
+                transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                className="grid place-items-center h-10 w-10 rounded-xl bg-[var(--ink)]/10 backdrop-blur-sm"
+              >
+                <Sparkles className="h-5 w-5 text-[var(--ink)]" />
+              </motion.span>
               <ExternalLink className="h-4 w-4 text-[var(--ink)]/70 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
             </div>
             <div className="mt-10">
               <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--ink)]/70">
-                {p.demo ? "Live demo" : "Not deployed"}
+                {p.demo ? "See it live" : "Not deployed yet"}
               </div>
-              <div className="mt-2 font-display text-2xl md:text-3xl font-light text-[var(--ink)] truncate">
-                {p.demo ? new URL(p.demo).hostname.replace(/^www\./, "") : "—"}
+              <div className="mt-2 font-display text-2xl md:text-3xl font-light italic text-[var(--ink)] truncate">
+                {p.demo ? "Step inside →" : "—"}
               </div>
+              {p.demo && (
+                <div className="mt-1 font-mono text-[10px] text-[var(--ink)]/60 truncate">
+                  {new URL(p.demo).hostname.replace(/^www\./, "")}
+                </div>
+              )}
             </div>
           </CardShell>
 
@@ -124,15 +135,22 @@ export function ProjectLinks({ project: p }: { project: Project }) {
             onClick={(e: any) => !p.repo && e.preventDefault()}
           >
             <div className="flex items-start justify-between">
-              <Github className="h-6 w-6 text-[var(--ink)]" />
+              <motion.span
+                whileHover={{ rotate: 12, scale: 1.1 }}
+                transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                className="grid place-items-center h-10 w-10 rounded-xl bg-[var(--ink)]/10 backdrop-blur-sm"
+              >
+                <Telescope className="h-5 w-5 text-[var(--ink)]" />
+              </motion.span>
               <ExternalLink className="h-4 w-4 text-[var(--ink)]/70 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
             </div>
             <div className="mt-10">
               <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--ink)]/70">
-                Source code
+                Peek under the hood
               </div>
-              <div className="mt-2 font-display text-2xl md:text-3xl font-light text-[var(--ink)] truncate">
-                {p.repo ?? "—"}
+              <div className="mt-2 font-display text-2xl md:text-3xl font-light italic text-[var(--ink)] truncate flex items-center gap-2">
+                <Github className="h-5 w-5 shrink-0" />
+                {p.repo?.split("/")[1] ?? "—"}
               </div>
             </div>
           </CardShell>
@@ -161,14 +179,14 @@ export function ProjectLinks({ project: p }: { project: Project }) {
                 <motion.span
                   animate={
                     starred
-                      ? { scale: [1, 1.4, 1], rotate: [0, -10, 10, 0] }
+                      ? { scale: [1, 1.5, 1], rotate: [0, -15, 15, 0] }
                       : { scale: 1, rotate: 0 }
                   }
                   transition={{ duration: 0.6, ease }}
-                  className="relative inline-flex"
+                  className="relative inline-flex grid place-items-center h-10 w-10 rounded-xl bg-[var(--ink)]/10 backdrop-blur-sm"
                 >
-                  <Star
-                    className={`h-6 w-6 transition-colors ${
+                  <Heart
+                    className={`h-5 w-5 transition-colors ${
                       starred ? "fill-[var(--ink)] text-[var(--ink)]" : "text-[var(--ink)]"
                     }`}
                   />
@@ -186,12 +204,12 @@ export function ProjectLinks({ project: p }: { project: Project }) {
                   </AnimatePresence>
                 </motion.span>
                 <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--ink)]/70">
-                  {starred ? "Starred" : "Star"}
+                  {starred ? "Loved" : "Tap to love"}
                 </span>
               </div>
               <div className="mt-10">
                 <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--ink)]/70">
-                  Show some love
+                  {starred ? "Thanks — it means a lot" : "Show some love"}
                 </div>
                 <div className="mt-2 flex items-baseline gap-2">
                   <AnimatePresence mode="popLayout">
@@ -207,7 +225,7 @@ export function ProjectLinks({ project: p }: { project: Project }) {
                     </motion.span>
                   </AnimatePresence>
                   <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--ink)]/70">
-                    stars
+                    hearts
                   </span>
                 </div>
               </div>
